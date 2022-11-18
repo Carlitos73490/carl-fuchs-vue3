@@ -9,12 +9,11 @@ import { RouterLink, RouterView } from 'vue-router'
     <section id="header">
 
       <!-- Logo -->
-      <h1><a href="index.html">AmiiVue</a></h1>
-
+      <h1><RouterLink :to="{name : 'home'}">AmiiVue</RouterLink></h1>
       <!-- Nav -->
       <nav id="nav">
         <ul>
-          <li class="current"><RouterLink :to="{name : 'home'}">Home</RouterLink></li>
+          <li><RouterLink :to="{name : 'home'}">Home</RouterLink></li>
           <!-- <li><a href="left-sidebar.html">Pokémons</a></li> -->
           <li><RouterLink :to="{name: 'amiiboList'}">Liste Amiibo</RouterLink></li>
         </ul>
@@ -48,4 +47,10 @@ import { RouterLink, RouterView } from 'vue-router'
 </template>
 
 <style scoped>
+/*copy de la classe current du static*/
+.router-link-active{
+  background: #d52349;
+  color: #fff !important;
+  font-weight: 700;
+}
 </style>

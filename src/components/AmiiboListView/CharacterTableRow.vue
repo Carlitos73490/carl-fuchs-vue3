@@ -4,12 +4,14 @@ const props = defineProps({
     type : Object
   }
 })
+
+
 </script>
 <template>
   <tr>
-    <td>{{character.name}}</td>
-    <td>{{ character.game }}</td>
-    <td><button>voir</button></td>
+    <td>{{props.character.character}}</td>
+    <td>{{ props.character.gameSeries }}</td>
+    <td><RouterLink  :to="{name: 'amiiboDetails',params :{ tail : props.character.tail}}"><button>voir</button></RouterLink> </td>
   </tr>
 </template>
 <style scoped>

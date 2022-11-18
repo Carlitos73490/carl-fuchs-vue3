@@ -1,5 +1,20 @@
 <script setup>
 import CharacterTableRow from "../components/AmiiboListView/CharacterTableRow.vue";
+import {ref,onBeforeMount } from 'vue'
+import axios from "axios";
+
+
+const API_ALL_AMIIBO = 'https://www.amiiboapi.com/api/amiibo/'
+const amiibos = ref([])
+const isLoading = ref(true)
+
+onBeforeMount(async () => {
+  const response = await axios.get(API_ALL_AMIIBO)
+  amiibos.value = response.data.amiibo
+  if (response.status === 200){
+    isLoading.value = false
+  }
+})
 </script>
 
 <template>
@@ -10,7 +25,7 @@ import CharacterTableRow from "../components/AmiiboListView/CharacterTableRow.vu
         <article class="box post">
           <header>
             <h2>Ma Collection</h2>
-            <p>(ici le nombre d'amiibo)</p>
+            <p>{{amiibos.length}}</p>
           </header>
           <table>
             <tr>
@@ -18,8 +33,8 @@ import CharacterTableRow from "../components/AmiiboListView/CharacterTableRow.vu
               <th>game Series</th>
               <th>Action</th>
             </tr>
-            <CharacterTableRow :character="{name : 'Mario',game:'Super Mario'}"></CharacterTableRow>
-            <CharacterTableRow :character="{name : 'Luigi',game:'Super Mario'}"></CharacterTableRow>
+            <CharacterTableRow v-if="isLoading" :character="{character : '⏳',gameSeries : '⏳',tail :'404'}"></CharacterTableRow>
+            <CharacterTableRow v-for="amiibo in amiibos" :key="amiibo.tail" :character="amiibo"></CharacterTableRow>
           </table>
         </article>
       </div>
